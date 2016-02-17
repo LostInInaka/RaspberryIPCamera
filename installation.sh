@@ -1,6 +1,9 @@
 # ok, let's get started.
 # To begin with, start by downloading a Raspbian Jessie Lite image from the Raspbian foundation website, write to sd card, boot it up.
-# Ssh into it with username pi and password raspberry
+# Ssh into it with username pi and password raspberry or any other account in the admin group
+
+# Set user to variable for non-pi user installs
+current_user="$(last | grep $USER | cut -d' ' -f1)"
 
 # Bring the OS up to date:
 sudo apt-get update && sudo apt-get -y upgrade
@@ -12,7 +15,7 @@ sudo apt-get -y install git
 git clone https://github.com/ronnyvdbr/RaspberryIPCamera.git
 
 # add our pi user to www-data group.
-sudo usermod -a -G www-data pi
+sudo usermod -a -G www-data ${current_user}
 
 # Install our webserver with PHP support.
 sudo apt-get -y install nginx
@@ -39,7 +42,7 @@ echo "gpu_mem=256" | sudo tee -a /boot/config.txt
 echo "disable_camera_led=1" | sudo tee -a /boot/config.txt
 
 # put a sudoers file in the correct location for php shell commands integration
-sudo cp /home/pi/RaspberryIPCamera/DefaultConfigFiles/sudoers_commands /etc/sudoers.d/sudoers_commands
+sudo cp ${HOME}/RaspberryIPCamera/DefaultConfigFiles/sudoers_commands /etc/sudoers.d/sudoers_commands
 
 # Install UV4L software
 curl http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc | sudo apt-key add -
@@ -48,13 +51,13 @@ sudo apt-get update
 sudo apt-get -y install uv4l uv4l-raspicam
 sudo apt-get -y install uv4l-raspicam-extras
 sudo apt-get -y install uv4l-uvc
-sudo cp /home/pi/RaspberryIPCamera/DefaultConfigFiles/uv4l-raspicam.conf /etc/uv4l/uv4l-raspicam.conf
+sudo cp ${HOME}/RaspberryIPCamera/DefaultConfigFiles/uv4l-raspicam.conf /etc/uv4l/uv4l-raspicam.conf
 sudo chgrp www-data /etc/uv4l/uv4l-raspicam.conf
 sudo chmod 664 /etc/uv4l/uv4l-raspicam.conf
 
 # Put correct security rights on configuration files
-sudo chgrp www-data /home/pi/RaspberryIPCamera/www/RaspberryIPCameraSettings.ini
-sudo chmod 664 /home/pi/RaspberryIPCamera/www/RaspberryIPCameraSettings.ini
+sudo chgrp www-data ${HOME}/RaspberryIPCamera/www/RaspberryIPCameraSettings.ini
+sudo chmod 664 ${HOME}/RaspberryIPCamera/www/RaspberryIPCameraSettings.ini
 
 sudo chgrp www-data /etc/timezone
 sudo chmod 664 /etc/timezone
