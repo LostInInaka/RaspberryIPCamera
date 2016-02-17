@@ -55,9 +55,13 @@ sudo cp ${HOME}/RaspberryIPCamera/DefaultConfigFiles/uv4l-raspicam.conf /etc/uv4
 sudo chgrp www-data /etc/uv4l/uv4l-raspicam.conf
 sudo chmod 664 /etc/uv4l/uv4l-raspicam.conf
 
+# This should allow for removal of git directory if you want to clean up after install - also allows for easy backup of config files
+mkdir -p ${HOME}/.config/RaspberryIPCamera
+cp ${HOME}/RaspberryIPCamera/www/RaspberryIPCameraSettings.ini ${HOME}/.config/RaspberryIPCamera/
+
 # Put correct security rights on configuration files
-sudo chgrp www-data ${HOME}/RaspberryIPCamera/www/RaspberryIPCameraSettings.ini
-sudo chmod 664 ${HOME}/RaspberryIPCamera/www/RaspberryIPCameraSettings.ini
+sudo chgrp www-data ${HOME}/.config/RaspberryIPCamera/RaspberryIPCameraSettings.ini
+sudo chmod 664 ${HOME}/.config/RaspberryIPCamera/RaspberryIPCameraSettings.ini
 
 sudo chgrp www-data /etc/timezone
 sudo chmod 664 /etc/timezone
