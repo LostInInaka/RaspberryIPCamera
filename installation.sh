@@ -27,7 +27,7 @@ sudo apt-get -y install php5-fpm
 sudo rm /etc/nginx/sites-enabled/default
 
 # Copy our own website config file to the nginx available website configurations
-sudo cp RaspberryIPCamera/DefaultConfigFiles/RaspberryIPCamera.Nginx.Siteconf /etc/nginx/sites-available/RaspberryIPCamera.Nginx.Siteconf
+sudo cp ${HOME}/RaspberryIPCamera/DefaultConfigFiles/RaspberryIPCamera.Nginx.Siteconf /etc/nginx/sites-available/RaspberryIPCamera.Nginx.Siteconf
 
 # Let's enable our new website:
 sudo ln -s /etc/nginx/sites-available/RaspberryIPCamera.Nginx.Siteconf /etc/nginx/sites-enabled/RaspberryIPCamera.Nginx.Siteconf
