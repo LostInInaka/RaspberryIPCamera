@@ -41,6 +41,9 @@ echo "start_x=1" | sudo tee -a /boot/config.txt
 echo "gpu_mem=256" | sudo tee -a /boot/config.txt
 echo "disable_camera_led=1" | sudo tee -a /boot/config.txt
 
+# Unmount the boot volume so you don't accidentally mess things up ;)
+sudo mount -o remount ro /boot
+
 # put a sudoers file in the correct location for php shell commands integration
 sudo cp ${HOME}/RaspberryIPCamera/DefaultConfigFiles/sudoers_commands /etc/sudoers.d/sudoers_commands
 
