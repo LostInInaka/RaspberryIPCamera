@@ -3,7 +3,7 @@
 # Ssh into it with username pi and password raspberry or any other account in the admin group
 
 # Set user to variable for non-pi user installs
-current_user="$(last | grep $USER | cut -d' ' -f1)"
+current_user="$(last | grep $USER | head -1 |cut -d' ' -f1)"
 
 # Bring the OS up to date:
 sudo apt-get update && sudo apt-get -y upgrade
