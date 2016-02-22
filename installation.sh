@@ -3,7 +3,7 @@
 # Ssh into it with username pi and password raspberry or any other account in the admin group
 
 # Set user to variable for non-pi user installs
-current_user="$(last | grep $USER | head -1 |cut -d' ' -f1)"
+#current_user="$(last | grep $USER | head -1 |cut -d' ' -f1)"
 
 # Bring the OS up to date:
 sudo apt-get update && sudo apt-get -y upgrade
@@ -15,7 +15,8 @@ sudo apt-get -y install git
 git clone https://github.com/ronnyvdbr/RaspberryIPCamera.git
 
 # add our pi user to www-data group.
-sudo usermod -a -G www-data ${current_user}
+#sudo usermod -a -G www-data ${current_user}
+sudo usermod -a -G www-data $USER
 
 # Install our webserver with PHP support.
 sudo apt-get -y install nginx
@@ -77,6 +78,10 @@ sudo chmod 664 /etc/ntp.conf
 # first install dependencies
 sudo apt-get install libv4l-dev
 sudo apt-get install libjpeg-dev
+
+# input_testpicture.so uses 'convert' from imagemagick 
+sudo apt-get install imagemagick
+
 git clone https://github.com/ronnyvdbr/mjpg-streamer.git
 cd ~/mjpg-streamer/mjpg-streamer
 make USE_LIBV4L2=true clean all
